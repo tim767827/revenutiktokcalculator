@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulateur Revenus TikTok</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #111, #1f1f1f);
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #222;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      background: #ff0050;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #ff2d6f;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      background: #333;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💰 Simulateur Revenus TikTok</h1>
+
+    <input type="number" id="followers" placeholder="Nombre d'abonnés">
+    <input type="number" id="views" placeholder="Vues moyennes par vidéo">
+
+    <select id="niche">
+      <option value="1">Divertissement</option>
+      <option value="1.2">Business</option>
+      <option value="1.5">Finance</option>
+      <option value="0.8">Gaming</option>
+      <option value="1.3">Fitness</option>
+    </select>
+
+    <button onclick="calculer()">Calculer mes revenus</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+<script>
+function calculer() {
+  let followers = parseInt(document.getElementById("followers").value);
+  let views = parseInt(document.getElementById("views").value);
+  let nicheMultiplier = parseFloat(document.getElementById("niche").value);
+
+  if (!followers || !views) {
+    document.getElementById("result").innerHTML = "⚠️ Remplis tous les champs.";
+    return;
+  }
+
+  // Estimation Creator Fund (0.03€ pour 1000 vues)
+  let creatorFund = (views / 1000) * 0.03 * 30;
+
+  // Estimation sponsor (environ 0.01€ par abonné)
+  let sponsor = followers * 0.01 * nicheMultiplier;
+
+  let total = creatorFund + sponsor;
+
+  document.getElementById("result").innerHTML =
+    "💸 Estimation mensuelle : <br><br>" +
+    "Creator Fund : " + creatorFund.toFixed(2) + " €<br>" +
+    "Sponsors : " + sponsor.toFixed(2) + " €<br><br>" +
+    "🔥 Total estimé : <b>" + total.toFixed(2) + " € / mois</b>";
+}
+</script>
+
+</body>
+</html>
